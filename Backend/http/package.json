@@ -4,7 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc",
     "dev": "cd ../db && npm run build && cd ../http && tsc && node dist/index.js"
   },
   "keywords": [],
@@ -12,12 +14,18 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "typescript": "^5.7.3"
+    "@types/supertest": "^7.2.1",
+    "supertest": "^7.2.2",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "cors": "^2.8.5",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.6.2",
+    "helmet": "^8.3.0",
+    "zod": "^4.4.3"
   }
 }

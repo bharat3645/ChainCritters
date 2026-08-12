@@ -2,7 +2,8 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../src/Nft.sol"; 
+import "../src/Nft.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NftTest is Test{
     Nft nft;
@@ -29,9 +30,9 @@ contract NftTest is Test{
         assertEq(nft.getTokenAmount(tokenId), 10 ether, "Token amount should be the same as the one set");
     }
 
-    function testFail_mint() public{
+    function test_RevertWhen_MintCalledByNonOwner() public{
         vm.prank(user);
-        vm.expectRevert("Ownable: caller is not the owner");
+        vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, user));
         nft.mint(user, "https://www.google.com", 10 ether);
     }
 
@@ -44,7 +45,7 @@ contract NftTest is Test{
         // Now approve as user since they own the NFT
         vm.prank(user);
         nft.approvalNFT(tokenId);
-        
+
         assertEq(nft.getApproved(tokenId), address(nft), "NFT should be approved");
     }
 
@@ -61,7 +62,7 @@ contract NftTest is Test{
         // Now transfer as owner with payment
         vm.prank(owner);
         nft.transferNFT{value: 10 ether}(user, owner, tokenId);
-        
+
         assertEq(nft.ownerOf(tokenId), owner, "NFT should be transferred to owner");
     }
 }

@@ -1,0 +1,71 @@
+{
+  "name": "Tidefang EX",
+  "description": "A collectible Tidefang EX Critter card from the ChainCritters Trading Card Game.",
+  "image": "https://dz3we2x72f7ol.cloudfront.net/expansions/twilight-masquerade/en-us/SV06_EN_198.png",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Fighting"
+    },
+    {
+      "trait_type": "HP",
+      "value": 310
+    },
+    {
+      "trait_type": "Stage",
+      "value": "Stage 2"
+    },
+    {
+      "trait_type": "Evolves From",
+      "value": "Ripplash"
+    },
+    {
+      "trait_type": "Tera Type",
+      "value": "Fighting"
+    },
+    {
+      "trait_type": "Move",
+      "value": "Shinobi Blade"
+    },
+    {
+      "trait_type": "Damage",
+      "value": 170
+    },
+    {
+      "trait_type": "Effect",
+      "value": "You may search your deck for a card and put it into your hand. Then, shuffle your deck."
+    },
+    {
+      "trait_type": "Move",
+      "value": "Mirage Barrage"
+    },
+    {
+      "trait_type": "Damage",
+      "value": "120 to 2 Critter"
+    },
+    {
+      "trait_type": "Effect",
+      "value": "Discard 2 Energy from this Critter. This attack does 120 damage to 2 of your opponent’s Critter."
+    },
+    {
+      "trait_type": "Weakness",
+      "value": "Psychic x2"
+    },
+    {
+      "trait_type": "Retreat Cost",
+      "value": 1
+    },
+    {
+      "trait_type": "Illustrator",
+      "value": "5ban Graphics"
+    },
+    {
+      "trait_type": "Set Number",
+      "value": "198/167"
+    },
+    {
+      "trait_type": "Rule",
+      "value": "Critter EX Rule: When your Critter ex is Knocked Out, your opponent takes 2 Prize cards."
+    }
+  ]
+}

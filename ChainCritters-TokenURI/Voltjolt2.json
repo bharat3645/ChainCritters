@@ -1,0 +1,59 @@
+{
+  "name": "Voltjolt",
+  "description": "A collectible Voltjolt Critter card from the ChainCritters Trading Card Game.",
+  "image": "https://dz3we2x72f7ol.cloudfront.net/expansions/paldean-fates/en-us/SV4pt5_EN_132.png",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Electric"
+    },
+    {
+      "trait_type": "HP",
+      "value": 120
+    },
+    {
+      "trait_type": "Stage",
+      "value": "Stage 1"
+    },
+    {
+      "trait_type": "Evolves From",
+      "value": "Sparkit"
+    },
+    {
+      "trait_type": "Ability",
+      "value": "Electrical Grounding"
+    },
+    {
+      "trait_type": "Ability Effect",
+      "value": "When 1 of your Critter is Knocked Out by damage from an attack from your opponent’s Critter, you may move a ⚡ Energy from that Critter to this Critter."
+    },
+    {
+      "trait_type": "Move",
+      "value": "Thunder"
+    },
+    {
+      "trait_type": "Damage",
+      "value": 180
+    },
+    {
+      "trait_type": "Effect",
+      "value": "This Critter also does 50 damage to itself."
+    },
+    {
+      "trait_type": "Weakness",
+      "value": "Fighting x2"
+    },
+    {
+      "trait_type": "Resistance",
+      "value": "None"
+    },
+    {
+      "trait_type": "Retreat Cost",
+      "value": 1
+    },
+    {
+      "trait_type": "Set Number",
+      "value": "132/097"
+    }
+  ]
+}

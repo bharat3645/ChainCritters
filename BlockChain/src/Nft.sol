@@ -32,7 +32,7 @@ contract Nft is ERC721URIStorage, Ownable {
     event TradeApproved(uint256 tradeId, address indexed approver);
     event TradeCompleted(uint256 tradeId, address indexed partyA, uint256 tokenA, address indexed partyB, uint256 tokenB);
 
-    constructor(address _initialOwner) ERC721("Pokemon", "POKE") Ownable(_initialOwner) {
+    constructor(address _initialOwner) ERC721("ChainCritters", "CRIT") Ownable(_initialOwner) {
         initialOwner = _initialOwner;
         tokenId = 0;
     }
@@ -119,11 +119,11 @@ contract Nft is ERC721URIStorage, Ownable {
         emit ApprovedNFT(_tokenID, msg.sender);
     }
 
-    function transferNFT(address from, address to, uint256 _tokenId) public {
+    function transferNFT(address from, address to, uint256 _tokenId) public payable {
         // require(address(this) == getApproved(_tokenId), "NFT is not approved");
         require(from == ownerOf(_tokenId), "You are not the owner of this NFT");
 
-        // uint256 amount = tokenAmount[_tokenId]; 
+        // uint256 amount = tokenAmount[_tokenId];
         // require(msg.value >= amount, "Insufficient payment for the NFT");
 
         // payable(from).transfer(amount);

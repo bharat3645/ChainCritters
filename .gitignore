@@ -8,4 +8,5 @@
 ./Backend/WebSockets/node_modules
 ./Backend/db/node_modules
 ./BlockChain/node_modules
-./pokemon_trading/node_modules
+./chaincritters-web/node_modules
+./chaincritters-web/.next

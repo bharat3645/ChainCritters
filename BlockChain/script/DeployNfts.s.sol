@@ -4,21 +4,25 @@ import {Script, console} from "forge-std/Script.sol";
 import {Nft} from "../src/Nft.sol";
 
 contract DeployNfts is Script {
+    // NOTE: this CID is the old pre-rebrand Pinata pin (still serving the
+    // legacy metadata under its original filenames). Re-pin the renamed
+    // files in ChainCritters-TokenURI/ to IPFS/Pinata and swap in the new
+    // CID here before running this script again.
     string[] private uris = [
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Charmander.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Charmeleon.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Charmeleon2.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Desclops.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Dusknoir.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Fezandipiti.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Froakie.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Frogadier.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Greninja.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Mew.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Pikachu.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Pikachu2.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Raichu.json",
-        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Raichu2.json"
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Emberling.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Cinderfang.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Cinderfang2.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Wraithcoil.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Wraithlord.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Plumavex.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Ripplet.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Ripplash.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Tidefang.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Mythrin.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Sparkit.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Sparkit2.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Voltjolt.json",
+        "https://silver-tricky-trout-945.mypinata.cloud/ipfs/bafybeide72hl3dkhv2e5ibzrigb7ciqri4klzq2jp3gizcaecc3zheyxuy/Voltjolt2.json"
 
     ];
 

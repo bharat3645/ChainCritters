@@ -1,21 +1,86 @@
-import ws from 'ws';
+import http from 'http';
+import { WebSocketServer, WebSocket } from 'ws';
 
-const wss = new ws.Server({ port: 8080 });
+const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
+// Shared secret so only the trusted http/db service can push server-side
+// events (offer created/accepted/rejected) — regular browser clients only
+// ever read from the socket, never hit this endpoint.
+const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY ?? 'dev-internal-key';
 
-wss.on('connection', (ws)=>{
-    console.log('User connected');
+function broadcast(payload: unknown) {
+  const data = JSON.stringify(payload);
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+}
 
-    ws.on('message', (message)=>{
-        // Broadcast message to all connected clients
-        wss.clients.forEach((client) => {
-            if (client.readyState === ws.OPEN) {
-                client.send(`Server broadcast: ${message}`);
-            }
-        });
-        console.log(`Received message: ${message}`);
-    })
+// A plain http server fronts the ws server so we can also expose a small
+// internal REST hook (`POST /broadcast`) that the Backend/http service uses
+// to push live trade-offer events out to every connected client, and a
+// `/health` check for container orchestration.
+const server = http.createServer((req, res) => {
+  if (req.method === 'GET' && req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', clients: wss.clients.size }));
+    return;
+  }
 
-    ws.on('close', ()=>{
-        console.log('User disconnected');
-    })
-})
+  if (req.method === 'POST' && req.url === '/broadcast') {
+    if (req.headers['x-internal-key'] !== INTERNAL_API_KEY) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: 'Unauthorized' }));
+      return;
+    }
+
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk;
+      if (body.length > 1_000_000) req.destroy(); // guard against runaway payloads
+    });
+    req.on('end', () => {
+      try {
+        const event = JSON.parse(body || '{}');
+        broadcast(event);
+        res.writeHead(202, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'broadcast queued' }));
+      } catch {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Invalid JSON body' }));
+      }
+    });
+    return;
+  }
+
+  res.writeHead(404, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ message: 'Not found' }));
+});
+
+const wss = new WebSocketServer({ server });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+  ws.send(JSON.stringify({ type: 'CONNECTED' }));
+
+  ws.on('message', (message) => {
+    // Client-to-client chat/ping messages (e.g. the trade discussion box)
+    // are relayed as-is to every other connected client.
+    let parsed: unknown = message.toString();
+    try {
+      parsed = JSON.parse(message.toString());
+    } catch {
+      // not JSON — forward as a plain chat message
+      parsed = { type: 'MESSAGE', text: message.toString() };
+    }
+    broadcast(parsed);
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
+
+server.listen(PORT, () => {
+  console.log(`WebSocket server listening on port ${PORT}`);
+});

@@ -7,10 +7,9 @@
     "build": "tsc"
   },
   "devDependencies": {
+    "@prisma/client": "^6.5.0",
+    "pino-pretty": "^13.0.0",
+    "prisma": "^6.5.0",
     "typescript": "^5.7.3"
-  },
-  "dependencies": {
-    "@prisma/client": "^5.22.0",
-    "prisma": "^5.7.1"
   }
 }
