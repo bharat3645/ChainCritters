@@ -10,3 +10,9 @@
 ./BlockChain/node_modules
 ./chaincritters-web/node_modules
 ./chaincritters-web/.next
+
+# Build output (see per-package .gitignore files)
+**/dist
+
+# OS cruft
+.DS_Store

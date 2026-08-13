@@ -2,6 +2,8 @@
 
 An on-chain trading card game: mint TCG-style creature NFTs, browse them in a marketplace, and propose/accept/reject peer-to-peer trades with live updates. Built as four independent subsystems in one repo.
 
+> **Not to be confused with [Velmora](https://github.com/bharat3645/Velmora):** both mint/trade/battle on-chain NFT creatures, but ChainCritters is this repo — a trading-card marketplace (mint, browse, peer-to-peer trade offers) — while Velmora is a real-time multiplayer world.
+
 ## Subsystems
 
 | Folder | Stack | Purpose |
